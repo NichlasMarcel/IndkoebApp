@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="title_activity_add_grocery">Grocery list</string>
+</resources>

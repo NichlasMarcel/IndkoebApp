@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Indkoeb App</string>
+    <string name="title_activity_add_grocery">AddGrocery</string>
+</resources>
