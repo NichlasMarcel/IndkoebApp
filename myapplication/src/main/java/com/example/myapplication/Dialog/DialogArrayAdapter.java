@@ -45,16 +45,15 @@ public class DialogArrayAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_listview, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.dialog_listview, parent, false);
         }
 
         final Grocery grocery = (Grocery)getItem(position);
 
-        TextView name = convertView.findViewById(R.id.label);
-        CheckBox found = convertView.findViewById(R.id.checkbox_grocery);
+        TextView name = convertView.findViewById(R.id.dialog_listview_textview);
 
         name.setText(grocery.getName());
-        found.setChecked(grocery.isFound());
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
