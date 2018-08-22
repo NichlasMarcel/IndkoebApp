@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GroceryList"
+            android:name=".GroceryList.GroceryList"
             android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_add_grocery"
             android:theme="@style/AppTheme.NoActionBar">

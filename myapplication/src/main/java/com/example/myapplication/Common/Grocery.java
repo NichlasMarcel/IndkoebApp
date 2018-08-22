@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Common;
 
 public class Grocery {
     String name;

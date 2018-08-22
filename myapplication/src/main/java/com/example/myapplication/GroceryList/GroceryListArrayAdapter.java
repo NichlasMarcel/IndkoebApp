@@ -1,25 +1,34 @@
-package com.example.myapplication;
+package com.example.myapplication.GroceryList;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.myapplication.Common.Grocery;
+import com.example.myapplication.R;
+
 import java.util.ArrayList;
 
-public class CustomArrayAdapter extends BaseAdapter {
+public class GroceryListArrayAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<Grocery> groceries = new ArrayList<>();
+    GroceryList activity;
 
-    public CustomArrayAdapter(Context context, ArrayList<Grocery> groceries) {
+    // DEPRECATED
+    public GroceryListArrayAdapter(Context context, ArrayList<Grocery> groceries, GroceryList activity) {
+        this.context = context;
+        this.groceries = groceries;
+        this.activity = activity;
+    }
+
+    public GroceryListArrayAdapter(Context context, ArrayList<Grocery> groceries) {
         this.context = context;
         this.groceries = groceries;
     }
@@ -46,14 +55,22 @@ public class CustomArrayAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.activity_listview, parent, false);
         }
 
-        Grocery grocery = (Grocery)getItem(position);
-
+        final Grocery grocery = (Grocery)getItem(position);
         TextView name = convertView.findViewById(R.id.label);
         CheckBox found = convertView.findViewById(R.id.checkbox_grocery);
-
+        Button delete = convertView.findViewById(R.id.deleteGrocery);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.getGroceryList().remove(grocery);
+                activity.fillList();
+            }
+        });
         name.setText(grocery.getName());
-        found.setChecked(grocery.found);
+        found.setChecked(grocery.isFound());
         return convertView;
     }
+
+
 
 }

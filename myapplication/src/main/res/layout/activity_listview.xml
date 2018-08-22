@@ -3,15 +3,29 @@
 <RelativeLayout  android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="1"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/deleteGrocery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:text="X"
+        android:textSize="16dip"
+        android:textColor="@android:color/holo_red_light"
+        android:minHeight="0dp" android:minWidth="0dp"
+        style="?android:attr/borderlessButtonStyle"/>
+
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/deleteGrocery"
         android:padding="10dip"
         android:textSize="16dip"
-        android:layout_marginLeft="15dp"
+        android:minHeight="0dp" android:minWidth="0dp"
         android:textStyle="bold" >
     </TextView>
+
 
     <CheckBox android:id="@+id/checkbox_grocery"
         android:layout_width="wrap_content"
