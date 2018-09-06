@@ -10,37 +10,43 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.myapplication.Common.Grocery;
+import com.example.myapplication.Database.Entities.Grocery;
+import com.example.myapplication.Database.Entities.GroceryListEntity;
+import com.example.myapplication.Database.Repository.GroceryRepository;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroceryListArrayAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<Grocery> groceries = new ArrayList<>();
+    List<GroceryListEntity> groceryList;
     GroceryList activity;
-
+    GroceryRepository groceryRepository;
     // DEPRECATED
-    public GroceryListArrayAdapter(Context context, ArrayList<Grocery> groceries, GroceryList activity) {
+    public GroceryListArrayAdapter(Context context, List<GroceryListEntity> groceries, GroceryList activity) {
         this.context = context;
-        this.groceries = groceries;
+        this.groceryList = groceries;
         this.activity = activity;
+        this.groceryRepository = new GroceryRepository(activity.getApplication());
     }
 
-    public GroceryListArrayAdapter(Context context, ArrayList<Grocery> groceries) {
+    public GroceryListArrayAdapter(Context context,List<GroceryListEntity> groceries) {
         this.context = context;
-        this.groceries = groceries;
+        this.groceryList = groceries;
     }
 
     @Override
     public int getCount() {
-        return groceries.size();
+        return groceryList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return groceries.get(i);
+        return groceryList.get(i);
     }
 
     @Override
@@ -55,19 +61,21 @@ public class GroceryListArrayAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.activity_listview, parent, false);
         }
 
-        final Grocery grocery = (Grocery)getItem(position);
+        final GroceryListEntity grocery = (GroceryListEntity)getItem(position);
         TextView name = convertView.findViewById(R.id.label);
         CheckBox found = convertView.findViewById(R.id.checkbox_grocery);
         Button delete = convertView.findViewById(R.id.deleteGrocery);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.getGroceryList().remove(grocery);
+                activity.removeGroceryFromList(grocery);
                 activity.fillList();
             }
         });
-        name.setText(grocery.getName());
-        found.setChecked(grocery.isFound());
+
+        List<Grocery> groceryFromDb = groceryRepository.getById(grocery.getGroceryId());
+        name.setText(grocery.getAmount() + "x " + groceryRepository.getById(grocery.getGroceryId()).get(0).getName());
+        found.setChecked(groceryRepository.getById(grocery.getGroceryId()).get(0).isFound());
         return convertView;
     }
 

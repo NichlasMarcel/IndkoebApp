@@ -13,19 +13,23 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ListView;
 
-import com.example.myapplication.Common.Grocery;
+import com.example.myapplication.Database.AppDatabase;
+import com.example.myapplication.Database.Entities.Grocery;
+import com.example.myapplication.Database.Repository.GroceryRepository;
 import com.example.myapplication.GroceryList.GroceryList;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddGrocery extends DialogFragment {
     DialogArrayAdapter parentAdapter;
     ListView listView;
     Context context;
     TextInputEditText inputField;
-
-
+    GroceryRepository groceryRepository;
+    View view = null;
+    static DialogArrayAdapter adapter;
 
     /**
      * The system calls this to get the DialogFragment's layout, regardless
@@ -55,6 +59,9 @@ public class AddGrocery extends DialogFragment {
                 fillList(inputField.getText().toString());
             }
         });
+        groceryRepository = new GroceryRepository(getActivity().getApplication());
+        if (groceryRepository.getAll().size() == 0)
+            groceryRepository.insert(AppDatabase.populate());
 
         fillList("");
 
@@ -76,8 +83,9 @@ public class AddGrocery extends DialogFragment {
     }
 
     public void fillList(String query) {
-        GroceryList activity = (GroceryList)getActivity();
-        DialogArrayAdapter adapter = new DialogArrayAdapter(context, getGroceryList(), activity);
+        GroceryList activity = (GroceryList) getActivity();
+        if (adapter == null)
+            adapter = new DialogArrayAdapter(context, getGroceryList(), activity);
         if (query.equals("")) {
             listView.setAdapter(adapter);
             return;
@@ -86,7 +94,7 @@ public class AddGrocery extends DialogFragment {
 
         ArrayList<Grocery> filtered = new ArrayList<>();
         for (Grocery g : getGroceryList()) {
-            if (g.getName().toLowerCase().startsWith(query.toLowerCase()))
+            if (g.getName().toLowerCase().contains(query.toLowerCase()))
                 filtered.add(g);
             adapter = new DialogArrayAdapter(context, filtered, activity);
         }
@@ -94,13 +102,7 @@ public class AddGrocery extends DialogFragment {
         activity.fillList();
     }
 
-    public ArrayList<Grocery> getGroceryList() {
-        ArrayList list = new ArrayList();
-        list.add(new Grocery("Apple", false));
-        list.add(new Grocery("Banana", true));
-        list.add(new Grocery("Orange", false));
-        list.add(new Grocery("Peach", true));
-
-        return list;
+    public List<Grocery> getGroceryList() {
+        return groceryRepository.getAll();
     }
 }

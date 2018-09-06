@@ -6,21 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.myapplication.Common.Grocery;
+import com.example.myapplication.Database.Entities.Grocery;
 import com.example.myapplication.GroceryList.GroceryList;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DialogArrayAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<Grocery> groceries = new ArrayList<>();
+    List<Grocery> groceries = new ArrayList<>();
     GroceryList activity;
-    public DialogArrayAdapter(Context context, ArrayList<Grocery> groceries, GroceryList activity) {
+    public DialogArrayAdapter(Context context, List<Grocery> groceries, GroceryList activity) {
         this.context = context;
         this.groceries = groceries;
         this.activity = activity;
@@ -57,7 +57,7 @@ public class DialogArrayAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.getGroceryList().add(grocery);
+                activity.addGroceryToList(grocery);
                 activity.fillList();
             }
         });

@@ -1,5 +1,6 @@
 package com.example.myapplication.GroceryList;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -8,19 +9,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.SearchView;
 
+import com.example.myapplication.Database.Entities.GroceryListEntity;
+import com.example.myapplication.Database.Repository.GroceryListRepository;
+import com.example.myapplication.Database.Repository.GroceryRepository;
 import com.example.myapplication.Dialog.AddGrocery;
-import com.example.myapplication.Common.Grocery;
-import com.example.myapplication.Dialog.DialogArrayAdapter;
+import com.example.myapplication.Database.Entities.Grocery;
+import com.example.myapplication.GroceryViewModel;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class GroceryList extends AppCompatActivity{
     ListView listView;
     GroceryListArrayAdapter adapter;
-    ArrayList<Grocery> groceryList = new ArrayList<>();
+//    ArrayList<Grocery> groceryList = new ArrayList<>();
+    GroceryRepository groceryRepository;
+    List<GroceryListEntity> groceryList = new ArrayList<>();
+    private GroceryViewModel groceryViewModel;
+    GroceryListRepository groceryListRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -38,8 +48,11 @@ public class GroceryList extends AppCompatActivity{
             }
         });
 
-
+        groceryViewModel = ViewModelProviders.of(this).get(GroceryViewModel.class);
         listView = (ListView) findViewById(R.id.mobile_list);
+        groceryRepository = new GroceryRepository(this.getApplication());
+        groceryListRepository = new GroceryListRepository(this.getApplication());
+        groceryList = groceryListRepository.getAll();
         fillList();
     }
 
@@ -50,12 +63,27 @@ public class GroceryList extends AppCompatActivity{
     }
 
     public void fillList(){
+        updateGroceryList();
         adapter = new GroceryListArrayAdapter(GroceryList.this, groceryList, this);
         listView.setAdapter(adapter);
     }
 
-    public ArrayList<Grocery> getGroceryList() {
-        return groceryList;
+    public void updateGroceryList(){
+        groceryList.clear();
+        groceryList = groceryListRepository.getAll();
     }
+
+    public void addGroceryToList(Grocery grocery){
+        groceryListRepository.insertAndUpdate(grocery);
+    }
+
+    public void removeGroceryFromList(GroceryListEntity grocery){
+        groceryListRepository.deleteOrUpdate(grocery);
+    }
+
+    public void updateDatebaseWithGroceryList(){
+
+    }
+
 
 }
