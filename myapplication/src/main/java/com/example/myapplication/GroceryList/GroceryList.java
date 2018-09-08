@@ -68,6 +68,10 @@ public class GroceryList extends AppCompatActivity{
         listView.setAdapter(adapter);
     }
 
+    public void updateChecked(GroceryListEntity groceryListEntity, boolean value){
+        groceryListRepository.updateChecked(groceryListEntity,value);
+    }
+
     public void updateGroceryList(){
         groceryList.clear();
         groceryList = groceryListRepository.getAll();

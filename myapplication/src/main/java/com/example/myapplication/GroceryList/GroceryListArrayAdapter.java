@@ -63,7 +63,7 @@ public class GroceryListArrayAdapter extends BaseAdapter {
 
         final GroceryListEntity grocery = (GroceryListEntity)getItem(position);
         TextView name = convertView.findViewById(R.id.label);
-        CheckBox found = convertView.findViewById(R.id.checkbox_grocery);
+        final CheckBox found = convertView.findViewById(R.id.checkbox_grocery);
         Button delete = convertView.findViewById(R.id.deleteGrocery);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +73,16 @@ public class GroceryListArrayAdapter extends BaseAdapter {
             }
         });
 
+        found.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.updateChecked(grocery, found.isChecked());
+            }
+        });
+
         List<Grocery> groceryFromDb = groceryRepository.getById(grocery.getGroceryId());
         name.setText(grocery.getAmount() + "x " + groceryRepository.getById(grocery.getGroceryId()).get(0).getName());
-        found.setChecked(groceryRepository.getById(grocery.getGroceryId()).get(0).isFound());
+        found.setChecked(grocery.isChecked());
         return convertView;
     }
 

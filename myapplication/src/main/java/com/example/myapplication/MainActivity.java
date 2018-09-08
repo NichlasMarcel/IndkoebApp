@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     GoogleSignInClient mGoogleSignInClient;
     final int RC_SIGN_IN = 3;
+    private boolean isInitialSetup = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +38,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInAccount account = null;
+        if(isInitialSetup){
+            account = GoogleSignIn.getLastSignedInAccount(this);
+            isInitialSetup = false;
+        }
+        else
+            mGoogleSignInClient.signOut();
+
+
         updateUI(account);
     }
 
