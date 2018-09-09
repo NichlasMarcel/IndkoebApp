@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.example.myapplication.Database.AppDatabase;
 import com.example.myapplication.Database.Entities.Grocery;
 import com.example.myapplication.Database.Repository.GroceryRepository;
+import com.example.myapplication.Fragment.BasketFragment;
 import com.example.myapplication.GroceryList.GroceryList;
 import com.example.myapplication.R;
 
@@ -99,7 +100,7 @@ public class AddGrocery extends DialogFragment {
             adapter = new DialogArrayAdapter(context, filtered, activity);
         }
         listView.setAdapter(adapter);
-        activity.fillList();
+        ((BasketFragment)activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container)).fillList();
     }
 
     public List<Grocery> getGroceryList() {

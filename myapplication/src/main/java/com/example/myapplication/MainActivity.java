@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.myapplication.Database.ActivityDatabase;
+import com.example.myapplication.Database.Repository.GroceryListRepository;
+import com.example.myapplication.Database.Repository.GroceryRepository;
 import com.example.myapplication.GroceryList.GroceryList;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        ActivityDatabase.setGroceryListRepository(new GroceryListRepository(this.getApplication()));
+        ActivityDatabase.setGroceryRepository(new GroceryRepository(this.getApplication()));
     }
 
     @Override

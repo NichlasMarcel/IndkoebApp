@@ -1,59 +1,43 @@
 package com.example.myapplication.GroceryList;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.View;
-import android.widget.ListView;
 
-import com.example.myapplication.Database.Entities.GroceryListEntity;
-import com.example.myapplication.Database.Repository.GroceryListRepository;
-import com.example.myapplication.Database.Repository.GroceryRepository;
-import com.example.myapplication.Dialog.AddGrocery;
-import com.example.myapplication.Database.Entities.Grocery;
-import com.example.myapplication.GroceryViewModel;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
+import com.darwindeveloper.horizontalscrollmenulibrary.extras.MenuItem;
 import com.example.myapplication.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-public class GroceryList extends AppCompatActivity{
-    ListView listView;
-    GroceryListArrayAdapter adapter;
-//    ArrayList<Grocery> groceryList = new ArrayList<>();
-    GroceryRepository groceryRepository;
-    List<GroceryListEntity> groceryList = new ArrayList<>();
-    private GroceryViewModel groceryViewModel;
-    GroceryListRepository groceryListRepository;
+public class GroceryList extends AppCompatActivity {
+    HorizontalScrollMenuView menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-        final AddGrocery newFragment = new AddGrocery();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        menu = (HorizontalScrollMenuView)findViewById(R.id.horizontalMenuId);
+        initMenu();
+
+//        final FragmentManager fragmentManager = getSupportFragmentManager();
+//        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        BasketFragment fragment = new BasketFragment();
+//        fragmentTransaction.add(R.id.fragment_container, fragment);
+//        fragmentTransaction.commit();
+    }
+
+    private void initMenu() {
+        menu.addItem("Basket", R.drawable.grocery_list_icon);
+        menu.addItem("New list", R.drawable.add_grocery_list_icon);
+        menu.addItem("Settings", R.drawable.settings_icon);
+
+        menu.setOnHSMenuClickListener(new HorizontalScrollMenuView.OnHSMenuClickListener() {
             @Override
-            public void onClick(View view) {
-                newFragment.show(fragmentManager, "dialog");
+            public void onHSMClick(MenuItem menuItem, int position) {
+
             }
         });
-
-        groceryViewModel = ViewModelProviders.of(this).get(GroceryViewModel.class);
-        listView = (ListView) findViewById(R.id.mobile_list);
-        groceryRepository = new GroceryRepository(this.getApplication());
-        groceryListRepository = new GroceryListRepository(this.getApplication());
-        groceryList = groceryListRepository.getAll();
-        fillList();
     }
 
     @Override
@@ -61,33 +45,5 @@ public class GroceryList extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-    public void fillList(){
-        updateGroceryList();
-        adapter = new GroceryListArrayAdapter(GroceryList.this, groceryList, this);
-        listView.setAdapter(adapter);
-    }
-
-    public void updateChecked(GroceryListEntity groceryListEntity, boolean value){
-        groceryListRepository.updateChecked(groceryListEntity,value);
-    }
-
-    public void updateGroceryList(){
-        groceryList.clear();
-        groceryList = groceryListRepository.getAll();
-    }
-
-    public void addGroceryToList(Grocery grocery){
-        groceryListRepository.insertAndUpdate(grocery);
-    }
-
-    public void removeGroceryFromList(GroceryListEntity grocery){
-        groceryListRepository.deleteOrUpdate(grocery);
-    }
-
-    public void updateDatebaseWithGroceryList(){
-
-    }
-
 
 }

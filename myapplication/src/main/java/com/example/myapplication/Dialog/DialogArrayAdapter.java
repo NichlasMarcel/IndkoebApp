@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.myapplication.Database.Entities.Grocery;
+import com.example.myapplication.Fragment.BasketFragment;
 import com.example.myapplication.GroceryList.GroceryList;
 import com.example.myapplication.R;
 
@@ -53,12 +54,12 @@ public class DialogArrayAdapter extends BaseAdapter {
         TextView name = convertView.findViewById(R.id.dialog_listview_textview);
 
         name.setText(grocery.getName());
-
+        final BasketFragment fragment = ((BasketFragment)activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container));
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.addGroceryToList(grocery);
-                activity.fillList();
+                fragment.addGroceryToList(grocery);
+                fragment.fillList();
             }
         });
         return convertView;

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.myapplication.Database.Entities.Grocery;
 import com.example.myapplication.Database.Entities.GroceryListEntity;
 import com.example.myapplication.Database.Repository.GroceryRepository;
+import com.example.myapplication.Fragment.BasketFragment;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -65,18 +66,19 @@ public class GroceryListArrayAdapter extends BaseAdapter {
         TextView name = convertView.findViewById(R.id.label);
         final CheckBox found = convertView.findViewById(R.id.checkbox_grocery);
         Button delete = convertView.findViewById(R.id.deleteGrocery);
+        final BasketFragment fragment = ((BasketFragment)activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container));
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.removeGroceryFromList(grocery);
-                activity.fillList();
+                fragment.removeGroceryFromList(grocery);
+                fragment.fillList();
             }
         });
 
         found.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.updateChecked(grocery, found.isChecked());
+                fragment.updateChecked(grocery, found.isChecked());
             }
         });
 
