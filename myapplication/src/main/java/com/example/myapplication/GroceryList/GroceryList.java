@@ -1,15 +1,20 @@
 package com.example.myapplication.GroceryList;
 
+import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
 import com.darwindeveloper.horizontalscrollmenulibrary.extras.MenuItem;
+import com.example.myapplication.Fragment.BasketFragment;
+import com.example.myapplication.Fragment.CreateDish;
 import com.example.myapplication.R;
 
 
-public class GroceryList extends AppCompatActivity {
+public class GroceryList extends AppCompatActivity implements CreateDish.OnFragmentInteractionListener{
     HorizontalScrollMenuView menu;
 
     @Override
@@ -19,12 +24,6 @@ public class GroceryList extends AppCompatActivity {
 
         menu = (HorizontalScrollMenuView)findViewById(R.id.horizontalMenuId);
         initMenu();
-
-//        final FragmentManager fragmentManager = getSupportFragmentManager();
-//        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        BasketFragment fragment = new BasketFragment();
-//        fragmentTransaction.add(R.id.fragment_container, fragment);
-//        fragmentTransaction.commit();
     }
 
     private void initMenu() {
@@ -35,7 +34,23 @@ public class GroceryList extends AppCompatActivity {
         menu.setOnHSMenuClickListener(new HorizontalScrollMenuView.OnHSMenuClickListener() {
             @Override
             public void onHSMClick(MenuItem menuItem, int position) {
+                if(menuItem.getText().equals("Basket")){
+                    final FragmentManager fragmentManager = getSupportFragmentManager();
+                    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    BasketFragment fragment = new BasketFragment();
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }else if(menuItem.getText().equals("New list")){
+                    final FragmentManager fragmentManager = getSupportFragmentManager();
+                    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    CreateDish fragment = new CreateDish();
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }else if(menuItem.getText().equals("Settings")){
 
+                }
             }
         });
     }
@@ -46,4 +61,8 @@ public class GroceryList extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

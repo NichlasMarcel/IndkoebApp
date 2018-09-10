@@ -24,8 +24,7 @@
         app:item_textColor="#fff"
         app:item_textSize="12px"/>
 
-    <fragment
-        android:name="com.example.myapplication.Fragment.BasketFragment"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_container"/>

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        SignInButton signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
         signInButton.setOnClickListener(this);
 
@@ -63,10 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateUI(GoogleSignInAccount account) {
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        SignInButton signInButton = (SignInButton)findViewById(R.id.sign_in_button);
         if(account != null){
             startActivity(signInButton);
-//            signInButton.setVisibility(View.INVISIBLE);
         }
         else{
             signInButton.setVisibility(View.VISIBLE);

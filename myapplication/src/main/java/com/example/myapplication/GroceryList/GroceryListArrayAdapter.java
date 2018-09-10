@@ -63,9 +63,9 @@ public class GroceryListArrayAdapter extends BaseAdapter {
         }
 
         final GroceryListEntity grocery = (GroceryListEntity)getItem(position);
-        TextView name = convertView.findViewById(R.id.label);
-        final CheckBox found = convertView.findViewById(R.id.checkbox_grocery);
-        Button delete = convertView.findViewById(R.id.deleteGrocery);
+        TextView name = (TextView)convertView.findViewById(R.id.label);
+        final CheckBox found = (CheckBox)convertView.findViewById(R.id.checkbox_grocery);
+        Button delete = (Button)convertView.findViewById(R.id.deleteGrocery);
         final BasketFragment fragment = ((BasketFragment)activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container));
         delete.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -40,7 +40,7 @@ public class BasketFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_basket,container,false);
 
         final AddGrocery newFragment = new AddGrocery();
-        FloatingActionButton fab = view.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

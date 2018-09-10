@@ -51,7 +51,7 @@ public class DialogArrayAdapter extends BaseAdapter {
 
         final Grocery grocery = (Grocery)getItem(position);
 
-        TextView name = convertView.findViewById(R.id.dialog_listview_textview);
+        TextView name = (TextView)convertView.findViewById(R.id.dialog_listview_textview);
 
         name.setText(grocery.getName());
         final BasketFragment fragment = ((BasketFragment)activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container));
