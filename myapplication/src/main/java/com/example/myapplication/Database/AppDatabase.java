@@ -10,17 +10,23 @@ import android.support.annotation.NonNull;
 
 import com.example.myapplication.Database.Dao.GroceryDao;
 import com.example.myapplication.Database.Dao.GroceryListDao;
+import com.example.myapplication.Database.Dao.RecipeDao;
+import com.example.myapplication.Database.Dao.RecipeItemDao;
 import com.example.myapplication.Database.Entities.Grocery;
 import com.example.myapplication.Database.Entities.GroceryListEntity;
+import com.example.myapplication.Database.Entities.Recipe;
+import com.example.myapplication.Database.Entities.RecipeItem;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Grocery.class, GroceryListEntity.class}, version = 1)
+@Database(entities = {Grocery.class, GroceryListEntity.class, Recipe.class, RecipeItem.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GroceryDao groceryDao();
     public abstract GroceryListDao groceryListDao();
+    public abstract RecipeDao recipeDao();
+    public abstract RecipeItemDao recipeItemDao();
 
     public static AppDatabase instance = null;
 
