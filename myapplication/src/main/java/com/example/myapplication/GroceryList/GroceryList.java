@@ -1,6 +1,5 @@
 package com.example.myapplication.GroceryList;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentManager;
@@ -10,11 +9,11 @@ import android.view.Menu;
 import com.darwindeveloper.horizontalscrollmenulibrary.custom_views.HorizontalScrollMenuView;
 import com.darwindeveloper.horizontalscrollmenulibrary.extras.MenuItem;
 import com.example.myapplication.Fragment.BasketFragment;
-import com.example.myapplication.Fragment.CreateDish;
+import com.example.myapplication.Dialog.CreateDish;
 import com.example.myapplication.R;
 
 
-public class GroceryList extends AppCompatActivity implements CreateDish.OnFragmentInteractionListener{
+public class GroceryList extends AppCompatActivity {
     HorizontalScrollMenuView menu;
 
     @Override
@@ -59,10 +58,5 @@ public class GroceryList extends AppCompatActivity implements CreateDish.OnFragm
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

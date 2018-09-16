@@ -5,27 +5,35 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "recipeItem")
-public class RecipeItem {
+public class RecipeItemEntity {
     @PrimaryKey(autoGenerate = true)
-    private int uid;
+    private long uid;
     @ColumnInfo(name = "grocery")
-    int groceryId;
+    long groceryId;
     @ColumnInfo(name = "amount")
     Integer amount;
 
-    public int getUid() {
+    public RecipeItemEntity() {
+    }
+
+    public RecipeItemEntity(long groceryId, Integer amount) {
+        this.groceryId = groceryId;
+        this.amount = amount;
+    }
+
+    public long getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(long uid) {
         this.uid = uid;
     }
 
-    public int getGroceryId() {
+    public long getGroceryId() {
         return groceryId;
     }
 
-    public void setGroceryId(int groceryId) {
+    public void setGroceryId(long groceryId) {
         this.groceryId = groceryId;
     }
 

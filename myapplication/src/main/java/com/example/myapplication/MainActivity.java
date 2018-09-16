@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        ActivityDatabase.setGroceryListRepository(new GroceryListRepository(this.getApplication()));
-        ActivityDatabase.setGroceryRepository(new GroceryRepository(this.getApplication()));
+        ActivityDatabase.getInstance(this.getApplication());
     }
 
     @Override

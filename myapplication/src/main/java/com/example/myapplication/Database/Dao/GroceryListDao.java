@@ -14,7 +14,7 @@ public interface GroceryListDao {
     List<GroceryListEntity> getAll();
 
     @Insert
-    void insert(GroceryListEntity grocery);
+    long insert(GroceryListEntity grocery);
 
     @Query("DELETE FROM groceryList")
     void deleteAll();

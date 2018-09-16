@@ -25,7 +25,7 @@ public class GroceryRepository {
         return groceryDao.getAll();
     }
 
-    public List<Grocery> getById(int id){
+    public List<Grocery> getById(long id){
         return groceryDao.getById(id);
     }
 

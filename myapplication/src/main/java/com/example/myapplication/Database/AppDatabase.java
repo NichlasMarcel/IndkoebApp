@@ -1,6 +1,5 @@
 package com.example.myapplication.Database;
 
-import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.DatabaseConfiguration;
 import android.arch.persistence.room.Room;
@@ -12,21 +11,20 @@ import com.example.myapplication.Database.Dao.GroceryDao;
 import com.example.myapplication.Database.Dao.GroceryListDao;
 import com.example.myapplication.Database.Dao.RecipeDao;
 import com.example.myapplication.Database.Dao.RecipeItemDao;
+import com.example.myapplication.Database.Dao.RecipeToRecipeItemEntityDao;
 import com.example.myapplication.Database.Entities.Grocery;
 import com.example.myapplication.Database.Entities.GroceryListEntity;
-import com.example.myapplication.Database.Entities.Recipe;
-import com.example.myapplication.Database.Entities.RecipeItem;
+import com.example.myapplication.Database.Entities.RecipeEntity;
+import com.example.myapplication.Database.Entities.RecipeItemEntity;
+import com.example.myapplication.Database.Entities.RecipeToRecipeItemEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-
-@Database(entities = {Grocery.class, GroceryListEntity.class, Recipe.class, RecipeItem.class}, version = 1)
+@Database(entities = {Grocery.class, GroceryListEntity.class, RecipeEntity.class, RecipeItemEntity.class, RecipeToRecipeItemEntity.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GroceryDao groceryDao();
     public abstract GroceryListDao groceryListDao();
     public abstract RecipeDao recipeDao();
     public abstract RecipeItemDao recipeItemDao();
+    public abstract RecipeToRecipeItemEntityDao recipeToRecipeItemEntityDao();
 
     public static AppDatabase instance = null;
 

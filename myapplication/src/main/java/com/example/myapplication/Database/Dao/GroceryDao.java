@@ -15,10 +15,10 @@ public interface GroceryDao {
     List<Grocery> getAll();
 
     @Query("SELECT * from groceries where uid=:id")
-    List<Grocery> getById(int id);
+    List<Grocery> getById(long id);
 
     @Insert
-    void insert(Grocery grocery);
+    long insert(Grocery grocery);
 
     @Query("DELETE FROM groceries")
     void deleteAll();

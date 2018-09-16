@@ -16,6 +16,7 @@ import com.example.myapplication.Database.ActivityDatabase;
 import com.example.myapplication.Database.Entities.Grocery;
 import com.example.myapplication.Database.Entities.GroceryListEntity;
 import com.example.myapplication.Dialog.AddGrocery;
+import com.example.myapplication.Dialog.CreateDish;
 import com.example.myapplication.GroceryList.GroceryList;
 import com.example.myapplication.GroceryList.GroceryListArrayAdapter;
 import com.example.myapplication.GroceryViewModel;
@@ -37,6 +38,7 @@ public class BasketFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_basket, container, false);
 
         final AddGrocery newFragment = new AddGrocery();
+        final CreateDish createDish = new CreateDish();
         BottomNavigationView bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,6 +49,7 @@ public class BasketFragment extends Fragment {
                         newFragment.show(getFragmentManager(), "dialog");
                         break;
                     case R.id.action_add_dish:
+                        createDish.show(getFragmentManager(), "dialog");
                         break;
                 }
 
@@ -77,8 +80,8 @@ public class BasketFragment extends Fragment {
         groceryList = ActivityDatabase.getGroceryListRepository().getAll();
     }
 
-    public void addGroceryToList(Grocery grocery) {
-        ActivityDatabase.getGroceryListRepository().insertAndUpdate(grocery);
+    public void addGroceryToList(Grocery... groceries) {
+        ActivityDatabase.getGroceryListRepository().insertAndUpdate(groceries);
     }
 
     public void removeGroceryFromList(GroceryListEntity grocery) {

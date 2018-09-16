@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ListView;
 
+import com.example.myapplication.Database.ActivityDatabase;
 import com.example.myapplication.Database.AppDatabase;
 import com.example.myapplication.Database.Entities.Grocery;
 import com.example.myapplication.Database.Repository.GroceryRepository;
@@ -62,7 +63,7 @@ public class AddGrocery extends DialogFragment {
         });
         groceryRepository = new GroceryRepository(getActivity().getApplication());
         if (groceryRepository.getAll().size() == 0)
-            groceryRepository.insert(AppDatabase.populate());
+            ActivityDatabase.getInstance(getActivity().getApplication()).PopulateDatabase();
 
         fillList("");
 
