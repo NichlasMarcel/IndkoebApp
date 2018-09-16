@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/horizontalMenuId"
-        app:backgroundMenuColor="#d2d2d2"
+        app:backgroundMenuColor="@color/colorPrimary"
         app:icon_height="50dp"
         app:icon_width="50dp"
         app:item_backgroundColor="@color/colorPrimary"
