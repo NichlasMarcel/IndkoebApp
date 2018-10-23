@@ -48,7 +48,6 @@ public class FindDishArrayAdapter extends BaseAdapter {
         }
 
         TextView title = view.findViewById(R.id.listview_find_dish_name);
-
         final Recipe recipe = (Recipe) getItem(i);
         title.setText(recipe.getTitle());
         final BasketFragment fragment = ((BasketFragment) activity.getSupportFragmentManager().findFragmentById(R.id.fragment_container));
@@ -65,7 +64,6 @@ public class FindDishArrayAdapter extends BaseAdapter {
                 fragment.fillList();
             }
         });
-
 
         return view;
     }
